@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <style type="text/css">
+
+  #playcontrols {
+  	text-align: center;
+	margin-top: 50px;
+  }
+  #playcontrols #activityindicator, #playcontrols #stopbutton {
+  	display: none;
+  }
+	  
+  #textposition {
+	margin-top: 20px;
+  }
+
+  </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+	<script type="text/javascript" charset="utf-8" src="phonegap-1.0.0.js"></script>
+	<script type="text/javascript" charset="utf-8" src="AudioStream.js"></script>
+	<script type="text/javascript" charset="utf-8" src="VolumeSlider.js"></script>
+    <script type="text/javascript" charset="utf-8">
+	
+	var audioStreamer;
+	var progressTimer;
+	
+	var playButton;
+	var stopButton;
+	var activityIndicator;
+	var textPosition;
+	
+	function onBodyLoad()
+	{
+		document.addEventListener("deviceready",onDeviceReady,false);
+	}
+	
+	function onDeviceReady()
+	{
+		/**
+		 * Set up the streamer
+		 */
+		audioStreamer = window.plugins.audioStream;
+		/**
+		 * If needed... set the stream type...
+		 */
+		// audioStreamer.setStreamType("mp3");
+	}
+	
+	function play()
+	{
+		playButton.style.display = 'none';
+		activityIndicator.style.display = 'block';
+		textPosition.innerHTML = 'loading...';
+		
+		audioStreamer.play("http://shoutmedia.abc.net.au:10326",playbackStateChanged,onError);
+	}
+		
+	function stop()
+	{
+	    audioStreamer.stop(playbackStateChanged,onError);
+	}
+	
+	function playbackStateChanged(state)
+	{
+	    switch (state) {
+	        case "isPlaying":
+	            console.log("Stream is playing");
+	            playButton.style.display = 'none';
+	            activityIndicator.style.display = 'none';
+	            stopButton.style.display = 'block';
+	            progressTimer = setInterval("textPosition.innerHTML = audioStreamer.progress + ' seconds'",300);
+	            break;
+	        case "isStopped":
+	            console.log("Stream is stopped");
+	            playButton.style.display = 'block';
+	            activityIndicator.style.display = 'none';
+	            stopButton.style.display = 'none';
+	            textPosition.innerHTML = 'stopped';
+	            clearInterval(progressTimer);
+	            break;
+	        case "isWaiting":
+	            console.log("Stream is waiting");
+	            playButton.style.display = 'none';
+	            activityIndicator.style.display = 'block';
+	            stopButton.style.display = 'none';
+	            textPosition.innerHTML = 'loading...';
+	            clearInterval(progressTimer);
+	            break;
+	        default:
+				// nada
+		}
+	}
+	
+	function onError(error) 
+	{
+	    console.log(e.message);
+	}
+    
+    </script>
+  </head>
+  <body onload="onBodyLoad()">
+	  <h2>Example AudioStreamer app</h2>
+  	  <div id="playcontrols">
+		  <a href="#" id="playbutton" onClick="play();return false;"><img src="playbutton.png" /></a>
+		  <a href="#" id="activityindicator" onClick="stop();return false;"><img src="activityindicator.gif" /></a>
+		  <a href="#" id="stopbutton" onClick="stop();return false;"><img src="stopbutton.png" /></a>
+	  </div>
+	  <div id="textposition">stopped</div>
+	  <script type="text/javascript">
+	  	playButton = document.getElementById('playbutton');
+		stopButton = document.getElementById('stopbutton');
+		activityIndicator = document.getElementById('activityindicator');
+		textPosition = document.getElementById('textposition');
+	  </script>
+  </body>
+</html>

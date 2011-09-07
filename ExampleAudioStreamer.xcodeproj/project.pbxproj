@@ -33,6 +33,10 @@
 		656E14C31416E81C0004450E /* Capture.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 656E14C21416E81C0004450E /* Capture.bundle */; };
 		656E14C51416E81C0004450E /* PhoneGap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 656E14C41416E81C0004450E /* PhoneGap.plist */; };
 		656E14C91416E81C0004450E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 656E14C81416E81C0004450E /* AppDelegate.m */; };
+		656E14D21416E86F0004450E /* www in Resources */ = {isa = PBXBuildFile; fileRef = 656E14D11416E86F0004450E /* www */; };
+		656E14DB1416E9220004450E /* AudioStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 656E14D81416E9220004450E /* AudioStream.m */; };
+		656E14DC1416E9220004450E /* AudioStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 656E14DA1416E9220004450E /* AudioStreamer.m */; };
+		656E14DE1416E9FD0004450E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 656E14DD1416E9FD0004450E /* CFNetwork.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,10 +54,10 @@
 		656E149C1416E81C0004450E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		656E149E1416E81C0004450E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		656E14A01416E81C0004450E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
-		656E14A41416E81C0004450E /* ExampleAudioStreamer-Info.plist */ = {isa = PBXFileReference; path = "ExampleAudioStreamer-Info.plist"; sourceTree = "<group>"; };
+		656E14A41416E81C0004450E /* ExampleAudioStreamer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ExampleAudioStreamer-Info.plist"; sourceTree = "<group>"; };
 		656E14A61416E81C0004450E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		656E14A81416E81C0004450E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		656E14AA1416E81C0004450E /* ExampleAudioStreamer-Prefix.pch */ = {isa = PBXFileReference; path = "ExampleAudioStreamer-Prefix.pch"; sourceTree = "<group>"; };
+		656E14AA1416E81C0004450E /* ExampleAudioStreamer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExampleAudioStreamer-Prefix.pch"; sourceTree = "<group>"; };
 		656E14AB1416E81C0004450E /* PhoneGap.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhoneGap.framework; path = /Users/Shared/PhoneGap/Frameworks/PhoneGap.framework; sourceTree = "<absolute>"; };
 		656E14B01416E81C0004450E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Resources/en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		656E14B41416E81C0004450E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = Resources/es.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -64,9 +68,15 @@
 		656E14C01416E81C0004450E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "Resources/splash/Default@2x.png"; sourceTree = "<group>"; };
 		656E14C21416E81C0004450E /* Capture.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Capture.bundle; path = Resources/Capture.bundle; sourceTree = "<group>"; };
 		656E14C41416E81C0004450E /* PhoneGap.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = PhoneGap.plist; sourceTree = "<group>"; };
-		656E14C71416E81C0004450E /* AppDelegate.h */ = {isa = PBXFileReference; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
+		656E14C71416E81C0004450E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		656E14C81416E81C0004450E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
-		656E14CB1416E81C0004450E /* README */ = {isa = PBXFileReference; name = README; path = Plugins/README; sourceTree = "<group>"; };
+		656E14CB1416E81C0004450E /* README */ = {isa = PBXFileReference; lastKnownFileType = text; name = README; path = Plugins/README; sourceTree = "<group>"; };
+		656E14D11416E86F0004450E /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
+		656E14D71416E9220004450E /* AudioStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStream.h; sourceTree = "<group>"; };
+		656E14D81416E9220004450E /* AudioStream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStream.m; sourceTree = "<group>"; };
+		656E14D91416E9220004450E /* AudioStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioStreamer.h; sourceTree = "<group>"; };
+		656E14DA1416E9220004450E /* AudioStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioStreamer.m; sourceTree = "<group>"; };
+		656E14DD1416E9FD0004450E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				656E14DE1416E9FD0004450E /* CFNetwork.framework in Frameworks */,
 				656E14891416E81C0004450E /* Foundation.framework in Frameworks */,
 				656E148B1416E81C0004450E /* UIKit.framework in Frameworks */,
 				656E148D1416E81C0004450E /* CoreGraphics.framework in Frameworks */,
@@ -104,6 +115,8 @@
 		656E14761416E81C0004450E = {
 			isa = PBXGroup;
 			children = (
+				656E14DD1416E9FD0004450E /* CFNetwork.framework */,
+				656E14D11416E86F0004450E /* www */,
 				656E14A21416E81C0004450E /* ExampleAudioStreamer */,
 				656E14871416E81C0004450E /* Frameworks */,
 				656E14851416E81C0004450E /* Products */,
@@ -221,6 +234,10 @@
 		656E14CA1416E81C0004450E /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
+				656E14D71416E9220004450E /* AudioStream.h */,
+				656E14D81416E9220004450E /* AudioStream.m */,
+				656E14D91416E9220004450E /* AudioStreamer.h */,
+				656E14DA1416E9220004450E /* AudioStreamer.m */,
 				656E14CB1416E81C0004450E /* README */,
 			);
 			name = Plugins;
@@ -287,6 +304,7 @@
 				656E14C11416E81C0004450E /* Default@2x.png in Resources */,
 				656E14C31416E81C0004450E /* Capture.bundle in Resources */,
 				656E14C51416E81C0004450E /* PhoneGap.plist in Resources */,
+				656E14D21416E86F0004450E /* www in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +333,8 @@
 			files = (
 				656E14A91416E81C0004450E /* main.m in Sources */,
 				656E14C91416E81C0004450E /* AppDelegate.m in Sources */,
+				656E14DB1416E9220004450E /* AudioStream.m in Sources */,
+				656E14DC1416E9220004450E /* AudioStreamer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,6 +469,7 @@
 				656E14D01416E81C0004450E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
