@@ -6,6 +6,10 @@ Why is this here?
 
 Someone asked for an example of usiong the plugin and I thought it would be a good idea to make a basic app that showed how the plugin worked.
 
+NOTE: It appears that a very recent version of PhoneGap is needed at least on Lion. Try the version in this issues thread if you have issues:
+
+https://github.com/phonegap/phonegap-iphone/issues/213#issuecomment-1843526
+
 ## License
 
 The MIT License
