@@ -46,8 +46,6 @@
 		<string>PGSplashScreen</string>
 		<key>AudioStream</key>
 		<string>AudioStream</string>
-		<key>VolumeSlider</key>
-		<string>VolumeSlider</string>
 	</dict>
 </dict>
 </plist>
