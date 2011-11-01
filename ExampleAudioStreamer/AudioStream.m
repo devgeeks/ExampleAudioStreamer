@@ -51,7 +51,7 @@
 
 @implementation AudioStream
 
-@synthesize successCallback, failCallback, status, streamUrl, progressString, streamType, responderView;
+@synthesize /*successCallback, failCallback,*/ status, streamUrl, progressString, streamType, responderView, callbackId;
 
 #ifndef __IPHONE_3_0
 @synthesize webView;
@@ -90,8 +90,17 @@
 		[streamer stop];
 		//[streamer release];
 		streamer = nil;
-        NSString* jsCallBack = [NSString stringWithFormat:@"%@(\"%@\");", self.successCallback, @"isStopped"];
+        
+		if (self.callbackId) {
+			PluginResult* result = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsString:@"isStopped"];
+			[result setKeepCallbackAsBool:YES];
+			[super writeJavascript:[result toSuccessCallbackString:self.callbackId]];
+			NSLog(@"%@",@"isStopped");
+		}
+		/*
+		NSString* jsCallBack = [NSString stringWithFormat:@"%@(\"%@\");", self.successCallback, @"isStopped"];
         [self writeJavascript: jsCallBack];
+		*/
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	}
 }
@@ -147,12 +156,15 @@
 
 - (void) setStreamType:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
+	/*
     NSUInteger argc = [arguments count];
 	
 	if (argc < 1) { // at a minimum we need a url and a success callback
 		return;	
 	}
-    self.streamType = [arguments objectAtIndex:0];
+	*/
+	
+    self.streamType = [arguments objectAtIndex:1];
 }
 //
 // play:
@@ -162,6 +174,13 @@
 //
 - (void) play:(NSMutableArray*)arguments withDict:(NSMutableDictionary*)options
 {
+	self.callbackId = arguments.pop;
+	self.streamUrl = [arguments objectAtIndex:0];
+	[self createStreamer];
+    [streamer start];
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	
+	/*
     NSUInteger argc = [arguments count];
 	
 	if (argc < 2) { // at a minimum we need a url and a success callback
@@ -181,6 +200,7 @@
     [self createStreamer];
     [streamer start];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	 */
 }
 
 //
@@ -218,7 +238,20 @@
 // reports that its playback status has changed.
 //
 - (void)playbackStateChanged:(NSNotification *)aNotification
-{    
+{ 
+	if ([streamer error] && [streamer errorMessage])
+	{
+		if (self.callbackId) {
+			PluginResult* result = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsDictionary:[NSDictionary dictionaryWithObjectsAndKeys:[streamer error],@"error",[streamer errorMessage],@"errorMessage", nil]];
+			[result setKeepCallbackAsBool:YES];
+			[super writeJavascript:[result toErrorCallbackString:self.callbackId]];
+		}
+		/*
+		 NSString* jsCallBack = [NSString stringWithFormat:@"%@({'error':'%@','errorMessage':'%@'});", self.failCallback, streamer.error, streamer.errorMessage];
+		 [self writeJavascript: jsCallBack];
+		 */
+		
+	}
 	if ([streamer isWaiting])
 	{
 		[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
@@ -241,16 +274,18 @@
 		[self setStatus:@"isIdle"];
 	}
 	
-	if (streamer.error && streamer.errorMessage)
-	{
-		NSString* jsCallBack = [NSString stringWithFormat:@"%@({'error':'%@','errorMessage':'%@'});", self.failCallback, streamer.error, streamer.errorMessage];
-		[self writeJavascript: jsCallBack];
+	
+	
+	if (self.callbackId) {
+		PluginResult* result = [PluginResult resultWithStatus:PGCommandStatus_OK messageAsString:status];
+		[result setKeepCallbackAsBool:YES];
+		[super writeJavascript:[result toSuccessCallbackString:self.callbackId]];
+		NSLog(@"STATUS: %@",status);
 	}
-	else
-	{
-		NSString* jsCallBack = [NSString stringWithFormat:@"%@('%@');", self.successCallback, status];
-		[self writeJavascript: jsCallBack];
-	}
+	/*
+	NSString* jsCallBack = [NSString stringWithFormat:@"%@('%@');", self.successCallback, status];
+	[self writeJavascript: jsCallBack];
+	*/
 }
 
 
@@ -272,8 +307,9 @@
                               progress];
 		}
 	}
-    NSString* jsCallBack = [NSString stringWithFormat:@"window.plugins.audioStream.setProgress('%@')",self.progressString];
-    [self writeJavascript: jsCallBack];
+	
+    NSString* jsCallBack = [NSString stringWithFormat:@"AudioStream.setProgress('%@')",self.progressString];
+    [super writeJavascript: jsCallBack];
 }
 
 #pragma mark -
@@ -296,13 +332,7 @@
     
     [status release];
     status = nil;
-    
-    [successCallback release];
-    successCallback = nil;
-    
-    [failCallback release];
-    failCallback = nil;
-	
+    	
 	[streamer release];
 	streamer = nil;
 	

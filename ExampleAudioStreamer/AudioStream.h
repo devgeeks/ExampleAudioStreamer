@@ -32,9 +32,11 @@
 @interface AudioStream : PGPlugin <ResponderViewDelegate> {
     AudioStreamer* streamer;
 	NSTimer* progressUpdateTimer;
+	
+	NSString* callbackId;
     
-    NSString* successCallback;
-    NSString* failCallback;
+//    NSString* successCallback;
+//    NSString* failCallback;
     NSString* status;
     NSString* streamUrl;
     NSString* progressString;
@@ -43,8 +45,10 @@
 	ResponderView* responderView;
 }
 
-@property (nonatomic, copy) NSString* successCallback;
-@property (nonatomic, copy) NSString* failCallback;
+@property (nonatomic, copy) NSString* callbackId;
+
+//@property (nonatomic, copy) NSString* successCallback;
+//@property (nonatomic, copy) NSString* failCallback;
 @property (nonatomic, copy) NSString* status;
 @property (nonatomic, copy) NSString* streamUrl;
 @property (nonatomic, copy) NSString* progressString;

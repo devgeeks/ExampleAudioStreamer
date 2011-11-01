@@ -6,32 +6,24 @@
 //  Copyright 2011 Devgeeks. All rights reserved.
 //
 
-var AudioStream = function(){ 
+var AudioStream = {
     
-}
-
-AudioStream.prototype.progress = 0;
-
-AudioStream.prototype.play = function(streamUrl, successCallback, failCallback) {
-    return PhoneGap.exec("AudioStream.play", streamUrl, GetFunctionName(successCallback), GetFunctionName(failCallback));
+	play: function(streamUrl, successCallback, failCallback) {
+		return PhoneGap.exec(successCallback, failCallback, "AudioStream", "play", [streamUrl]);
+	},
+	stop: function(successCallback, failCallback) {
+		return PhoneGap.exec(successCallback, failCallback, "AudioStream", "stop", []);
+	},
+	setProgress: function(progress) {
+		this.progress = progress;
+	},
+	setStreamType: function(streamType) {
+		return PhoneGap.exec(null, null, "AudioStream", "setStreamType", [streamType]);
+	}
 };
-
-AudioStream.prototype.stop = function(successCallback, failCallback) {
-    return PhoneGap.exec("AudioStream.stop", GetFunctionName(successCallback), GetFunctionName(failCallback));
-};
-
-AudioStream.prototype.setProgress = function(progress) {
-    AudioStream.prototype.progress = progress;
+if(!window.plugins)
+{
+	window.plugins = {};
 }
+window.plugins.audioStream = AudioStream;
 
-AudioStream.prototype.setStreamType = function(streamType) {
-    PhoneGap.exec("AudioStream.setStreamType",streamType);
-}
-
-PhoneGap.addConstructor(function(){
-    if(!window.plugins)
-    {
-        window.plugins = {};
-    }
-    window.plugins.audioStream = new AudioStream();
-});
